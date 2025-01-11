@@ -3,3 +3,4 @@
 -- Add any additional keymaps here
 vim.keymap.set("n", "<C-Up>", ":m .-2<CR>==", { desc = "Move line up" })
 vim.keymap.set("n", "<C-Down>", ":m .+1<CR>==", { desc = "Move line down" })
+vim.keymap.set("n", "<C-S-Up>", "yyp", { desc = "Duplicate line below" })
