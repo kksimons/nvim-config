@@ -1,11 +1,8 @@
 return {
   "neovim/nvim-lspconfig",
-  dependencies = { "saghen/blink.cmp" },
   opts = {
     inlay_hints = { enabled = false },
-    servers = {
-      eslint = {},
-    },
+    servers = { eslint = {} },
     setup = {
       eslint = function()
         require("lazyvim.util").lsp.on_attach(function(client)
