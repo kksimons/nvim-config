@@ -4,6 +4,17 @@ return {
     inlay_hints = { enabled = false },
     servers = {
       eslint = {},
+      vtsls = {
+        root_dir = function(fname)
+          local util = require("lspconfig.util")
+          -- Return nil if deno config is present
+          if util.root_pattern("deno.json", "deno.jsonc")(fname) then
+            return nil
+          end
+          return util.root_pattern("package.json", "tsconfig.json", ".git")(fname)
+        end,
+      },
+      -- denols only in deno projects
       denols = {
         root_dir = require("lspconfig.util").root_pattern("deno.json", "deno.jsonc"),
         settings = {
@@ -32,19 +43,7 @@ return {
           end
         end)
       end,
-      -- LazyVim's built-in conflict prevention
-      denols = function(_, opts)
-        if LazyVim.lsp.is_enabled("denols") and LazyVim.lsp.is_enabled("vtsls") then
-          local is_deno = require("lspconfig.util").root_pattern("deno.json", "deno.jsonc")
-          LazyVim.lsp.disable("vtsls", is_deno)
-          LazyVim.lsp.disable("denols", function(root_dir, config)
-            if not is_deno(root_dir) then
-              config.settings.deno.enable = false
-            end
-            return false
-          end)
-        end
-      end,
+      denols = nil,
     },
   },
 }
