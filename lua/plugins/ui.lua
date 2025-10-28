@@ -11,6 +11,7 @@ return {
   {
     "folke/noice.nvim",
     opts = function(_, opts)
+      opts.notify = { enabled = false }
       table.insert(opts.routes, {
         filter = {
           event = "notify",
