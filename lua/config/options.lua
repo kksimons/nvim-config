@@ -38,3 +38,12 @@ vim.opt.splitright = true
 vim.opt.splitkeep = "cursor"
 
 vim.opt.formatoptions:append({ "r" })
+
+-- Allow writing to any buffer regardless of buftype
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  callback = function()
+    if vim.opt.buftype:get() ~= "" then
+      vim.opt_local.buftype = ""
+    end
+  end,
+})

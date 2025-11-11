@@ -8,5 +8,10 @@ return {
         },
       },
     },
+    window = {
+      mappings = {
+        ["d"] = "delete",
+      },
+    },
   },
 }

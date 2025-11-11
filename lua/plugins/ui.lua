@@ -175,6 +175,9 @@ return {
           open_file = {
             quit_on_open = true,
           },
+          remove_file = {
+            close_window = false,
+          },
         },
         sort = {
           sorter = "case_sensitive",
@@ -192,6 +195,12 @@ return {
             "node_modules/.*",
           },
         },
+        ui = {
+          confirm = {
+            remove = false,
+            trash = false,
+          },
+        },
         log = {
           enable = true,
           truncate = true,
@@ -202,6 +211,15 @@ return {
             watcher = true,
           },
         },
+      })
+
+      -- Disable completion in nvim-tree
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "NvimTree",
+        callback = function()
+          vim.opt_local.complete = ""
+          vim.opt_local.completeopt = ""
+        end,
       })
 
       if vim.fn.argc(-1) == 0 then
